@@ -1,8 +1,8 @@
 import pytest
 
-import cities.cities as ct
+import cities.queries as qry
 
 
 def test_create():
     with pytest.raises(ValueError):
-        ct.create(17)
+        qry.create(17)
