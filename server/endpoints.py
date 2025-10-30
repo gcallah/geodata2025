@@ -46,7 +46,6 @@ class Cities(Resource):
             num_recs = len(cities)
         except ConnectionError as e:
             return {ERROR: str(e)}
-        print(f'{cities=}')
         return {
             CITY_RESP: cities,
             NUM_RECS: num_recs,
