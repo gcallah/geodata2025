@@ -41,7 +41,7 @@ def count() -> int:
 
 
 @needs_cache
-def create(flds: dict) -> str:
+def create(flds: dict, reload=True) -> str:
     if not isinstance(flds, dict):
         raise ValueError(f'Bad type for {type(flds)=}')
     code = flds.get(CODE)
@@ -56,7 +56,8 @@ def create(flds: dict) -> str:
         raise ValueError(f'Duplicate key: {code=}; {country_code=}')
     new_id = dbc.create(STATE_COLLECTION, flds)
     print(f'{new_id=}')
-    load_cache()
+    if reload:
+        load_cache()
     return new_id
 
 
