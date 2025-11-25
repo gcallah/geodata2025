@@ -5,6 +5,8 @@ We may be required to use a new database at any point.
 import os
 from functools import wraps
 
+import certifi
+
 import pymongo as pm
 
 LOCAL = "0"
@@ -17,6 +19,13 @@ client = None
 MONGO_ID = '_id'
 
 MIN_ID_LEN = 4
+
+user_nm = os.getenv('MONGO_USER_NM', 'datamixmaster')
+cloud_svc = os.getenv('MONGO_HOST', 'datamixmaster.26rvk.mongodb.net')
+passwd = os.environ.get("MONGO_PASSWD", '')
+cloud_mdb = "mongodb+srv"
+db_params = "retryWrites=false&w=majority"
+
 
 
 def is_valid_id(_id: str) -> bool:
@@ -53,9 +62,10 @@ def connect_db():
                 raise ValueError('You must set your password '
                                  + 'to use Mongo in the cloud.')
             print('Connecting to Mongo in the cloud.')
-            client = pm.MongoClient(f'mongodb+srv://gcallah:{password}'
-                                    + '@koukoumongo1.yud9b.mongodb.net/'
-                                    + '?retryWrites=true&w=majority')
+            client = pm.MongoClient(f'{cloud_mdb}://{user_nm}:{password}'
+                                    + f'@{cloud_svc}/geo2025DB'
+                                    + f'?{db_params}',
+                                    tlsCAFile=certifi.where())
         else:
             print("Connecting to Mongo locally.")
             client = pm.MongoClient()
