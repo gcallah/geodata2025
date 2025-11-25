@@ -63,7 +63,7 @@ def connect_db():
                                  + 'to use Mongo in the cloud.')
             print('Connecting to Mongo in the cloud.')
             client = pm.MongoClient(f'{cloud_mdb}://{user_nm}:{password}'
-                                    + f'@{cloud_svc}/geo2025DB'
+                                    + f'@{cloud_svc}/{GEO_DB}'
                                     + f'?{db_params}',
                                     tlsCAFile=certifi.where())
         else:
