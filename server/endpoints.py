@@ -38,12 +38,11 @@ STATE_RESP = 'States'
 @api.route(f'{CITIES_EPS}/{READ}')
 class Cities(Resource):
     """
-    The purpose of the HelloWorld class is to have a simple test to see if the
-    app is working at all.
+    Interact with our cities collection.
     """
     def get(self):
         """
-        A trivial endpoint to see if the server is running.
+        Returns all cities.
         """
         try:
             cities = cqry.read()
@@ -59,12 +58,11 @@ class Cities(Resource):
 @api.route(f'{STATES_EPS}/{READ}')
 class States(Resource):
     """
-    The purpose of the HelloWorld class is to have a simple test to see if the
-    app is working at all.
+    Interact with state data.
     """
     def get(self):
         """
-        A trivial endpoint to see if the server is running.
+        Returns all states.
         """
         try:
             states = sqry.read()
