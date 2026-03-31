@@ -79,11 +79,10 @@ def load_cache():
     cache = {}
     states = dbc.read(STATE_COLLECTION)
     for state in states:
-        cache[f'{state[CODE]},{state[COUNTRY_CODE]}'] = state
+        cache[f'{state[CODE]}|{state[COUNTRY_CODE]}'] = state
 
 
 def main():
-    create(SAMPLE_STATE)
     print(read())
 
 
