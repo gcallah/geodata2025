@@ -28,3 +28,11 @@ def test_construct_us_code_bad_length():
 def test_construct_us_code_bad_chars():
     with pytest.raises(ValueError):
         pc.USPostalCode('k' * pc.US_POSTCODE_LEN)
+
+
+def test_construct_us_code_bad_chars2():
+    """
+    Make sure no char is not a number.
+    """
+    with pytest.raises(ValueError):
+        pc.USPostalCode('9999k')
