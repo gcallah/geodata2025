@@ -36,3 +36,19 @@ def test_construct_us_code_bad_chars2():
     """
     with pytest.raises(ValueError):
         pc.USPostalCode('9999k')
+
+
+def test_str():
+    us_code = pc.USPostalCode(TEST_CODE)
+    code = str(us_code)
+    assert code == TEST_CODE
+
+
+def test_construct_uk_code_too_long():
+    with pytest.raises(ValueError):
+        pc.UKPostalCode('KJSHFJKSHDJFKHDJKFHDJKHFJKSDHFJK')
+
+
+def test_construct_uk_code_too_short():
+    with pytest.raises(ValueError):
+        pc.UKPostalCode('KJSHF')
