@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import re
 
 
 class PostalCode(ABC):
@@ -25,7 +26,10 @@ class USPostalCode(PostalCode):
 
 
 MIN_UK_POSTCODE_LEN = 7
-MAX_UK_POSTCODE_LEN = 8
+MAX_UK_POSTCODE_LEN = 9
+TEST_UK_CODE = 'LO45 56HA'
+TEST_UK_CODE_SHORT = 'L42 6HA'
+TEST_UK_CODE_LOWER = 'lo45 56ha'
 
 
 class UKPostalCode(PostalCode):
@@ -33,8 +37,12 @@ class UKPostalCode(PostalCode):
         if not isinstance(code, str):
             raise TypeError(f'Bad type for code: {type(code)}')
         if len(code) < MIN_UK_POSTCODE_LEN or len(code) > MAX_UK_POSTCODE_LEN:
-            raise ValueError(f'Bad value for {code=}')
-        self.code = code
+            raise ValueError(f'Bad length for {code=}')
+        upper_code = code.upper()
+        if re.match('[A-Z]+[0-9]+ [0-9]+[A-Z]+', upper_code):
+            self.code = upper_code
+        else:
+            raise ValueError(f'{code=} does not match UK pattern')
 
 
 def main():

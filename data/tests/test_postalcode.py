@@ -16,6 +16,7 @@ def test_construct_us_code():
 
 
 def test_construct_us_code_bad_type():
+    # must be a string!
     with pytest.raises(TypeError):
         pc.USPostalCode(42)
 
@@ -44,6 +45,21 @@ def test_str():
     assert code == TEST_CODE
 
 
+def test_construct_uk_code():
+    uk_code = pc.UKPostalCode(pc.TEST_UK_CODE)
+    assert isinstance(uk_code, pc.UKPostalCode)
+
+
+def test_construct_uk_code_short():
+    uk_code = pc.UKPostalCode(pc.TEST_UK_CODE_SHORT)
+    assert isinstance(uk_code, pc.UKPostalCode)
+
+
+def test_construct_uk_code_letters_are_lower():
+    uk_code = pc.UKPostalCode(pc.TEST_UK_CODE_LOWER)
+    assert isinstance(uk_code, pc.UKPostalCode)
+
+
 def test_construct_uk_code_too_long():
     with pytest.raises(ValueError):
         pc.UKPostalCode('KJSHFJKSHDJFKHDJKFHDJKHFJKSDHFJK')
@@ -52,3 +68,13 @@ def test_construct_uk_code_too_long():
 def test_construct_uk_code_too_short():
     with pytest.raises(ValueError):
         pc.UKPostalCode('KJSHF')
+
+
+def test_construct_uk_code_bad_pattern1():
+    with pytest.raises(ValueError):
+        pc.UKPostalCode('09hj kj09')
+
+
+def test_construct_uk_code_bad_pattern2():
+    with pytest.raises(ValueError):
+        pc.UKPostalCode('KH7682WD')
